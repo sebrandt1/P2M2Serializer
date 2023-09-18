@@ -1,0 +1,254 @@
+﻿<Window x:Class="InputRecordingEditor.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InputRecordingEditor.UI"
+        mc:Ignorable="d"
+        Title="Input Recording Editor" Height="1080" Width="1920">
+
+    <Window.Resources>
+        <BitmapImage x:Key="Circle" UriSource="/Icons/Circle.png" />
+        <BitmapImage x:Key="Cross" UriSource="/Icons/Cross.png" />
+        <BitmapImage x:Key="L1" UriSource="/Icons/L1.png" />
+        <BitmapImage x:Key="L2" UriSource="/Icons/L2.png" />
+        <BitmapImage x:Key="L3" UriSource="/Icons/L3.png" />
+        <BitmapImage x:Key="R1" UriSource="/Icons/R1.png" />
+        <BitmapImage x:Key="R2" UriSource="/Icons/R2.png" />
+        <BitmapImage x:Key="R3" UriSource="/Icons/R3.png" />
+        <BitmapImage x:Key="Square" UriSource="/Icons/Square.png" />
+        <BitmapImage x:Key="Triangle" UriSource="/Icons/Triangle.png" />
+
+        <!-- Define custom styles for DataGrid column headers -->
+        <Style x:Key="CircleIconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource Circle}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="CrossIconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource Cross}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="L1IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource L1}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="L2IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource L2}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="L3IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource L3}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="R1IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource R1}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="R2IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource R2}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="R3IconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource R3}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="SquareIconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource Square}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="TriangleIconStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{StaticResource Triangle}" Width="16" Height="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Menu Background="White">
+                <MenuItem Header="_File">
+                    <MenuItem Header="New" Click="FileMenuNew_Click"/>
+                    <MenuItem Header="Open" Click="FileMenuOpen_Click"/>
+                    <MenuItem Header="Save" Click="FileMenuSave_Click"/>
+                </MenuItem>
+                <MenuItem Header="Combination">
+                    <MenuItem Header="New" Click="ComboNew_Click"/>
+                    <MenuItem Header="Edit" Click="ComboEdit_Click"/>
+                    <MenuItem Header="Insert" Click="ComboInsert_Click"/>
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,5,0,0" Background="Gray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Top">
+                <TextBlock Text="Author: " Margin="5,0,5,0" />
+                <TextBox Text="{Binding Author}" Margin="0,0,5,0" Width="Auto"/>
+                <TextBlock Text="Version: " Margin="5,0,5,0" />
+                <TextBox Text="{Binding Version}" Margin="0,0,5,0" Width="Auto"/>
+                <TextBlock Text="Game: " Margin="5,0,5,0" />
+                <TextBox Text="{Binding Game}" Margin="0,0,5,0" Width="Auto"/>
+                <TextBlock Text="Undo Count: " Margin="5,0,5,0" />
+                <TextBox Text="{Binding UndoCount}" Margin="0,0,5,0" Width="Auto"/>
+                <TextBlock Text="Use Save State: " Margin="5,0,5,0" />
+                <CheckBox IsChecked="{Binding UseSaveState}" Margin="0,0,5,0"/>
+                <TextBlock Text="File Name: " Margin="5,0,5,0" />
+                <TextBox Text="{Binding FileName}" Margin="0,0,5,0" Width="Auto"/>
+                <TextBlock Text="{Binding FrameCountText}"/>
+                <Button Name="NewFrameButton" Click="NewFrameButton_Click" Content="Add Frame" Margin="20,0,0,0"></Button>
+                <Button Name="RandomFrameButton" Click="AddRandomFrames_Click" Content="Random Frames" Margin="20,0,0,0"/>
+            </StackPanel>
+        </Grid>
+        <DataGrid Name="FrameDataGrid" Grid.Row="1" ItemsSource="{Binding FrameDataList}" AutoGenerateColumns="False" Margin="0,28,0,-28" Grid.RowSpan="2"
+                  PreviewKeyDown="FrameDataGrid_PreviewKeyDown"
+                  Background="Gray"
+                  AlternatingRowBackground="DarkGray"
+                  RowBackground="Gray"
+                  CanUserSortColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" IsReadOnly="True" >
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="(ItemsControl.AlternationIndex)" RelativeSource="{RelativeSource Mode=TemplatedParent}" />
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Column 2" Width="50" HeaderStyle="{StaticResource CrossIconStyle}" Binding="{Binding Buttons.Cross, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 3" Width="50" HeaderStyle="{StaticResource SquareIconStyle}" Binding="{Binding Buttons.Square, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 4" Width="50" HeaderStyle="{StaticResource CircleIconStyle}" Binding="{Binding Buttons.Circle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 5" Width="50" HeaderStyle="{StaticResource TriangleIconStyle}" Binding="{Binding Buttons.Triangle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 6" Width="50" HeaderStyle="{StaticResource L1IconStyle}" Binding="{Binding Buttons.L1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 7" Width="50" HeaderStyle="{StaticResource L2IconStyle}" Binding="{Binding Buttons.L2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 8" Width="50" HeaderStyle="{StaticResource R1IconStyle}" Binding="{Binding Buttons.R1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 9" Width="50" HeaderStyle="{StaticResource R2IconStyle}" Binding="{Binding Buttons.R2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 10" Width="50" HeaderStyle="{StaticResource L3IconStyle}" Binding="{Binding Buttons.L3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Column 11" Width="50" HeaderStyle="{StaticResource R3IconStyle}" Binding="{Binding Buttons.R3, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridCheckBoxColumn Header="Left" Width="50" Binding="{Binding Buttons.Left, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Up" Width="50" Binding="{Binding Buttons.Up, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Right" Width="50" Binding="{Binding Buttons.Right, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Down" Width="50" Binding="{Binding Buttons.Down, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Select" Width="50" Binding="{Binding Buttons.Select, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Start" Width="50" Binding="{Binding Buttons.Start, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridCheckBoxColumn.HeaderStyle>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Pressed Buttons" Width="150" Binding="{Binding Buttons.PressedButtonsFlag}" IsReadOnly="true">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Window>

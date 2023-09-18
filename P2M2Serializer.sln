@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2M2Serializer", "P2M2Serializer\P2M2Serializer.csproj", "{5651153E-7D5C-4784-9F43-A6A6FDA46AA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InputRecordingEditor.UI", "InputRecordingEditor.UI\InputRecordingEditor.UI.csproj", "{17A64FC7-2245-4AD9-91FF-391CE1E2A253}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5651153E-7D5C-4784-9F43-A6A6FDA46AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5651153E-7D5C-4784-9F43-A6A6FDA46AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5651153E-7D5C-4784-9F43-A6A6FDA46AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5651153E-7D5C-4784-9F43-A6A6FDA46AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A64FC7-2245-4AD9-91FF-391CE1E2A253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A64FC7-2245-4AD9-91FF-391CE1E2A253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A64FC7-2245-4AD9-91FF-391CE1E2A253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A64FC7-2245-4AD9-91FF-391CE1E2A253}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6E1AEC4-72C8-4432-846C-EC073978EA18}
+	EndGlobalSection
+EndGlobal

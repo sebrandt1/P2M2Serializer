@@ -1,0 +1,41 @@
+﻿<Window x:Class="InputRecordingEditor.UI.NewFileInputParametersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       Title="Input Parameters" Height="350" Width="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Version:" ToolTip="{Binding VersionTooltip}"/>
+        <TextBox Grid.Row="1" Name="VersionTextBox" ToolTip="{Binding VersionTooltip}"/>
+
+        <Label Grid.Row="2" Content="Author:" ToolTip="{Binding AuthorTooltip}"/>
+        <TextBox Grid.Row="3" Name="AuthorTextBox" ToolTip="{Binding AuthorTooltip}"/>
+
+        <Label Grid.Row="4" Content="Game:" ToolTip="{Binding GameTooltip}"/>
+        <TextBox Grid.Row="5" Name="GameTextBox" ToolTip="{Binding GameTooltip}"/>
+
+        <Label Grid.Row="6" Content="Undo Count:" ToolTip="{Binding UndoCountTooltip}"/>
+        <TextBox Grid.Row="7" Name="UndoCountTextBox" ToolTip="{Binding UndoCountTooltip}"/>
+
+        <StackPanel Grid.Row="8" Orientation="Horizontal">
+            <Label Content="Use Save State:" ToolTip="{Binding SaveStateTooltip}"/>
+            <CheckBox Name="UseSaveStateCheckBox" IsChecked="true" VerticalAlignment="Center" ToolTip="{Binding SaveStateTooltip}"/>
+        </StackPanel>
+
+        <Label Grid.Row="9" Content="File Name:" ToolTip="{Binding FileNameTooltip}" Margin="0,10,0,-16"/>
+        <TextBox Grid.Row="9" Name="FileNameTextBox" ToolTip="{Binding FileNameTooltip}" Margin="0,36,0,-34"/>
+
+        <Button Grid.Row="9" Content="Create" Click="CreateButton_Click" Margin="0,69,0,-69"/>
+    </Grid>
+</Window>

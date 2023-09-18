@@ -1,0 +1,17 @@
+﻿<Window x:Class="InputRecordingEditor.UI.ComboInsertionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InputRecordingEditor.UI"
+        mc:Ignorable="d"
+        Title="ComboInsertionWindow" Height="150" Width="350">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="35,18,0,0" TextWrapping="Wrap" Text="Presets" VerticalAlignment="Top"/>
+        <ComboBox Name="PresetSelection" ItemsSource="{Binding Presets}" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock HorizontalAlignment="Left" Margin="190,15,0,0" TextWrapping="Wrap" Text="Repeat" VerticalAlignment="Top"/>
+        <TextBox Name="Repeat" HorizontalAlignment="Left" Margin="148,36,0,0" TextWrapping="Wrap" Text="{Binding RepeatCombo}" VerticalAlignment="Top" Width="120"/>
+        <Button Click="InsertButton_Click" Content="Insert" HorizontalAlignment="Left" Margin="285,34,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
