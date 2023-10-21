@@ -139,12 +139,11 @@ namespace InputRecordingEditor.UI
                 if (deletionPrompt == MessageBoxResult.Yes)
                 {
                     var viewModel = (P2M2ViewModel)DataContext;
+                    var itemsToRemove = selectedCells.Cast<FrameDataViewModel>().ToList();
 
-                    for(var i = 0; i < selectedCells.Count; i++)
+                    foreach(var item in itemsToRemove)
                     {
-                        var cellIndex = FrameDataGrid.Items.IndexOf(selectedCells[i]);
-                        viewModel.FrameDataList.RemoveAt(cellIndex);
-                        
+                        viewModel.FrameDataList.Remove(item);
                     }
 
                     viewModel.ForceReloadFrameCountText();

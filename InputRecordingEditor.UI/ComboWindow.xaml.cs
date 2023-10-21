@@ -1,6 +1,7 @@
 ﻿using InputRecordingEditor.UI.Converters;
 using InputRecordingEditor.UI.FileManaging;
 using InputRecordingEditor.UI.ViewModels;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -55,13 +56,12 @@ namespace InputRecordingEditor.UI
                 var deletionPrompt = MessageBox.Show($"Are you sure you want to delete {selectedCells.Count} frame{(selectedCells.Count > 1 ? "s" : string.Empty)}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (deletionPrompt == MessageBoxResult.Yes)
                 {
-                    var viewModel = (ComboPresetViewModel)DataContext;
+                    var viewModel = (P2M2ViewModel)DataContext;
+                    var itemsToRemove = selectedCells.Cast<FrameDataViewModel>().ToList();
 
-                    for (var i = 0; i < selectedCells.Count; i++)
+                    foreach (var item in itemsToRemove)
                     {
-                        var cellIndex = FrameDataGrid.Items.IndexOf(selectedCells[i]);
-                        viewModel.FrameDataList.RemoveAt(cellIndex);
-
+                        viewModel.FrameDataList.Remove(item);
                     }
 
                     viewModel.ForceReloadFrameCountText();
