@@ -30,7 +30,7 @@ namespace P2M2Serializer.IO
             var frameCount = inputRecording.FrameCount;
 
             var frameSize = Marshal.SizeOf<FrameData>();
-            var frames = new FrameData[frameCount ];
+            var frames = new FrameData[frameCount];
             for (var i = 0; i < frames.Length; i++)
             {
                 var nextFrameStartIndex = inputRecordingStructSize + i * frameSize;

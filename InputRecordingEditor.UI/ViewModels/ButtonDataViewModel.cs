@@ -28,6 +28,40 @@ namespace InputRecordingEditor.UI.ViewModels
             _leftAnalogStick = new AnalogStickViewModel();
         }
 
+        public ButtonDataViewModel Clone()
+        {
+            return new ButtonDataViewModel
+            {
+                Circle = this.Circle,
+                Cross = this.Cross,
+                Square = this.Square,
+                Triangle = this.Triangle,
+                L1 = this.L1,
+                L2 = this.L2,    
+                R1 = this.R1,
+                R2 = this.R2,
+                Up = this.Up,
+                Down = this.Down,
+                Left = this.Left,
+                Right = this.Right,
+                Select = this.Select,
+                Start = this.Start,
+                L3 = this.L3,
+                R3 = this.R3,
+                PressedButtonsFlag = this.PressedButtonsFlag,
+                LeftAnalogStick = new AnalogStickViewModel
+                {
+                    LeftRight = this.LeftAnalogStick.LeftRight,
+                    UpDown = this.LeftAnalogStick.UpDown,
+                },
+                RightAnalogStick = new AnalogStickViewModel
+                {
+                    LeftRight = this.RightAnalogStick.LeftRight,
+                    UpDown = this.RightAnalogStick.UpDown,
+                }
+            };
+        }
+
         public ButtonFlags PressedButtonsFlag
         {
             get { return _pressedButtonsFlag; }

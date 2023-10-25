@@ -1,11 +1,8 @@
 ﻿using InputRecordingEditor.UI.Combos;
 using InputRecordingEditor.UI.FileManaging;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InputRecordingEditor.UI.ViewModels
 {

@@ -27,6 +27,14 @@ namespace InputRecordingEditor.UI.ViewModels
             }
         }
 
+        public void ForceReloadIndexValues()
+        {
+            for (var i = 0; i < FrameDataList.Count; i++)
+            {
+                FrameDataList[i].Index = i + 1;
+            }
+        }
+
         public string FrameCountText
         {
             get

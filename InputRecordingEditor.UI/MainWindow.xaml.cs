@@ -6,7 +6,9 @@ using Microsoft.Win32;
 using P2M2Serializer.Enums;
 using P2M2Serializer.Structs;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -22,6 +24,7 @@ namespace InputRecordingEditor.UI
     public partial class MainWindow : Window
     {
         private readonly IP2M2InstanceManager p2m2InstanceManager;
+        private P2M2ViewModel backupViewModel;
 
         public MainWindow(IP2M2InstanceManager p2m2InstanceManager)
         {
@@ -52,6 +55,8 @@ namespace InputRecordingEditor.UI
             try
             {
                 DataContext = p2m2InstanceManager.Open();
+                ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+                ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
             }
             catch (Exception ex)
             {
@@ -80,6 +85,34 @@ namespace InputRecordingEditor.UI
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void FileMenuSplice_Click(object sender, RoutedEventArgs e)
+        {
+            var fileToInsert = p2m2InstanceManager.Open();
+            var qaPrompt = new QuestionAnswerPrompt("Empty frames to add between recordings:", 0, "Ok");
+
+            if(qaPrompt.ShowDialog() == true)
+            {
+                var framesToAdd = int.Parse(qaPrompt.AnswerTextBox.Text);
+                if (framesToAdd > 0)
+                {
+                    for (var i = 0; i < framesToAdd; i++)
+                    {
+                        ((P2M2ViewModel)DataContext).FrameDataList.Add(new FrameDataViewModel());
+                    }
+                }
+            }
+
+            var splicedFrames = fileToInsert.FrameDataList;
+            foreach(var frame in splicedFrames)
+            {
+                ((P2M2ViewModel)DataContext).FrameDataList.Add(frame);
+            }
+
+            ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
+            ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+        }
+
         private void ComboNew_Click(object sender, RoutedEventArgs e)
         {
             //Open window with textboxes for the fields for a combo preset. (Copy the datagrid for frame display?)
@@ -90,6 +123,7 @@ namespace InputRecordingEditor.UI
             }
             //MessageBox.Show($"Not yet implemented");
         }
+
         private void ComboEdit_Click(object sender, RoutedEventArgs e)
         {
             //Open window with textboxes for the fields for a combo preset. (Copy the datagrid for frame display?)
@@ -97,6 +131,7 @@ namespace InputRecordingEditor.UI
             comboWindow.DataContext = null; //Set context to loaded preset
             MessageBox.Show($"Not yet implemented");
         }
+
         private void ComboInsert_Click(object sender, RoutedEventArgs e)
         {
             //Load all available combos (title only) and insert it at the user specified frame
@@ -118,10 +153,15 @@ namespace InputRecordingEditor.UI
                     {
                         for (var j = 0; j < convertedComboPreset.FrameDataList.Count; j++)
                         {
-                            viewModel.FrameDataList.Add(convertedComboPreset.FrameDataList[j]);
+                            var clone = new FrameDataViewModel
+                            {
+                                Buttons = convertedComboPreset.FrameDataList[j].Buttons.Clone()
+                            };
+                            viewModel.FrameDataList.Add(clone);
                         }
                     }
-                    viewModel.ForceReloadFrameCountText();
+                    ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+                    ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
                 }
                 catch (Exception ex)
                 {
@@ -138,17 +178,59 @@ namespace InputRecordingEditor.UI
                 var deletionPrompt = MessageBox.Show($"Are you sure you want to delete {selectedCells.Count} frame{(selectedCells.Count > 1 ? "s" : string.Empty)}?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (deletionPrompt == MessageBoxResult.Yes)
                 {
-                    var viewModel = (P2M2ViewModel)DataContext;
-                    var itemsToRemove = selectedCells.Cast<FrameDataViewModel>().ToList();
-
-                    foreach(var item in itemsToRemove)
+                    try
                     {
-                        viewModel.FrameDataList.Remove(item);
-                    }
 
-                    viewModel.ForceReloadFrameCountText();
+                        var viewModel = (P2M2ViewModel)DataContext;
+                        var itemsToRemove = selectedCells.Cast<FrameDataViewModel>().ToList();
+
+                        foreach (var item in itemsToRemove)
+                        {
+                            viewModel.FrameDataList.Remove(item);
+                        }
+                        ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+                        ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
                 }
                 e.Handled = true;
+            }
+        }
+
+        private void FrameDataGrid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.M)
+            {
+
+                try
+                {
+                    var questionPrompt = new QuestionAnswerPrompt("Input index to move selected frames to:", 0, "Ok");
+                    if (questionPrompt.ShowDialog() == true)
+                    {
+                        var moveTo = int.Parse(questionPrompt.AnswerTextBox.Text) - 1;
+                        var viewModel = (P2M2ViewModel)DataContext;
+                        var selectedCells = FrameDataGrid.SelectedItems.Cast<FrameDataViewModel>().ToList();
+                        var isMovingDown = selectedCells.FirstOrDefault()?.Index < moveTo;
+                        if(isMovingDown)
+                        {
+                            selectedCells = selectedCells.OrderBy(x => x.Index).ToList();
+                        }
+                        else
+                        {
+                            selectedCells = selectedCells.OrderByDescending(x => x.Index).ToList();
+                        }
+                        var currentIndex = 0;
+                        foreach (var item in selectedCells)
+                        {
+                            viewModel.FrameDataList.Remove(item);
+                            viewModel.FrameDataList.Insert(moveTo, item);
+                            currentIndex++;
+                        }
+                        viewModel.ForceReloadFrameCountText();
+                        viewModel.ForceReloadIndexValues();
+                    }
+                }
+                catch(Exception ex) { MessageBox.Show(ex.Message); }
             }
         }
 
@@ -161,7 +243,8 @@ namespace InputRecordingEditor.UI
 
             var viewModel = (P2M2ViewModel)DataContext;
             viewModel.FrameDataList.Add(new FrameDataViewModel());
-            viewModel.ForceReloadFrameCountText();
+            ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+            ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
         }
 
         private void AddRandomFrames_Click(object sender, RoutedEventArgs e)
@@ -178,7 +261,8 @@ namespace InputRecordingEditor.UI
             {
                 viewModel.FrameDataList.Add(CreateRandomFrameData());
             }
-            viewModel.ForceReloadFrameCountText();
+            ((P2M2ViewModel)DataContext).ForceReloadIndexValues();
+            ((P2M2ViewModel)DataContext).ForceReloadFrameCountText();
         }
 
         private FrameDataViewModel CreateRandomFrameData()

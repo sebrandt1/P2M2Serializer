@@ -6,6 +6,7 @@ namespace InputRecordingEditor.UI.ViewModels
     {
         private const byte NEUTRAL_JOYSTICK_STATE = 127;
         private ButtonDataViewModel _buttons;
+        private int _index;
 
         public ButtonDataViewModel Buttons
         {
@@ -17,6 +18,16 @@ namespace InputRecordingEditor.UI.ViewModels
                     _buttons = value;
                     OnPropertyChanged(nameof(Buttons));
                 }
+            }
+        }
+
+        public int Index
+        {
+            get => _index;
+            set
+            {
+                _index = value;
+                OnPropertyChanged(nameof(Index));
             }
         }
 

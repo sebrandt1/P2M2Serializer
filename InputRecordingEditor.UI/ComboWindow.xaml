@@ -167,13 +167,11 @@
                   PreviewKeyDown="FrameDataGrid_PreviewKeyDown"
                   Background="Gray"
                   AlternatingRowBackground="DarkGray"
-                  RowBackground="Gray" Grid.ColumnSpan="2">
+                  RowBackground="Gray"
+                  CanUserSortColumns="False" Grid.ColumnSpan="2"
+                  PreviewKeyUp="FrameDataGrid_PreviewKeyUp">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" IsReadOnly="True" >
-                    <DataGridTextColumn.Binding>
-                        <Binding Path="(ItemsControl.AlternationIndex)" RelativeSource="{RelativeSource Mode=TemplatedParent}" />
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="#" IsReadOnly="True" Binding="{Binding Index}"/>
                 <DataGridCheckBoxColumn Header="Column 2" Width="50" HeaderStyle="{StaticResource CrossIconStyle}" Binding="{Binding Buttons.Cross, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridCheckBoxColumn Header="Column 3" Width="50" HeaderStyle="{StaticResource SquareIconStyle}" Binding="{Binding Buttons.Square, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridCheckBoxColumn Header="Column 4" Width="50" HeaderStyle="{StaticResource CircleIconStyle}" Binding="{Binding Buttons.Circle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
